@@ -1,6 +1,8 @@
 import requests
 import pandas as pd
 
+#### People Functions (Jonathan) ####
+
 def fetch_swapi_people(index=1):
     people_api_url = f"https://swapi.dev/api/people/{index}/"
     
@@ -44,6 +46,7 @@ def create_people_dataframe():
         
     return people_df    
  
+#### Starships Functions (Marianne) ####
 def fetch_starships():
     uri = 'https://swapi.dev/api/starships/'
     myDict = {}
