@@ -47,6 +47,7 @@ def create_people_dataframe():
     return people_df    
  
 #### Starships Functions (Marianne) ####
+
 def fetch_starships():
     uri = 'https://swapi.dev/api/starships/'
     myDict = {}
@@ -89,3 +90,4 @@ def transform_starships_data(data):
             starships_df.loc[indexDataFrame,'edited'] = data[p][s]["edited"]
             indexDataFrame +=1
     return starships_df
+
