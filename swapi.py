@@ -1,5 +1,5 @@
 import requests
-import pandas as pd
+import pandas as pd    
 
 #### People Functions (Jonathan) ####
 
@@ -13,7 +13,6 @@ def fetch_swapi_people(index=1):
         return data
     else:
         return "Nothing fetched"
-   
     
 def create_people_dataframe():
     columns = ["name","height", "mass", 
@@ -112,3 +111,48 @@ def transform_data(data_set):
     df = pd.DataFrame.from_dict(data_set)
     return df
 
+#### Vehicles Functions (Eden) ####
+
+def vehicules(n_page):
+    
+    uri = "https://swapi.dev/api/vehicles"
+
+    url = uri
+
+    if n_page > 0 :
+        url = f"{uri}/?page={str(n_page)}"
+    r = requests.get(url)
+
+    if r.status_code == 200 : 
+        data = r.json()
+        result_list = data["results"]
+        return result_list
+    else : 
+        return None
+    
+def fetch_vehicule(n_page):
+    vehicule_list = vehicules(n_page)
+    vehicule_list
+
+    columns = ["name" , "model" , "manufacturer" , "cost_in_credits" , "length" ,"max_atmosphering_speed" , "crew" , "passengers" , "cargo_capacity" , "consumables" , "vehicle_class" , "pilots"  ,"films"]
+    df = pd.DataFrame(columns=columns)
+    df
+
+    for i in range(1,36) :
+        if vehicule_list == None :
+            continue
+        else :
+            df.loc[i,"name"] = vehicule["name"]
+            df.loc[i,"model"] = vehicule["model"]
+            df.loc[i,"manufacturer"] = vehicule["manufacturer"]
+            df.loc[i,"cost_in_credits"] = vehicule["cost_in_credits"]
+            df.loc[i,"length"] = vehicule["length"]
+            df.loc[i,"max_atmosphering_speed"] = vehicule["max_atmosphering_speed"]
+            df.loc[i,"crew"] = vehicule["crew"]
+            df.loc[i,"passengers"] = vehicule["passengers"]
+            df.loc[i,"cargo_capacity"] = vehicule["cargo_capacity"]
+            df.loc[i,"consumables"] = vehicule["consumables"]
+            df.loc[i,"vehicle_class"] = vehicule["vehicle_class"]
+            df.loc[i,"pilots"] = vehicule["pilots"]
+            df.loc[i,"films"] = vehicule["films"]
+        return df   
