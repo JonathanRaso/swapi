@@ -49,25 +49,19 @@ def create_people_dataframe():
             people_df.loc[i,'url'] = people["url"]
         
     return people_df    
- 
+
+def vehicules(n_page):
     
- 
-n_page = 4 
-uri = "https://swapi.dev/api/vehicles"
+    uri = "https://swapi.dev/api/vehicles"
+
+    url = uri
     
-url = uri
-if n_page > 1 : 
-    url = f"{uri}/?page={str(n_page)}"
-url 
 
 
-r = requests.get(url)
-
-def fetch_vehicule(n_page):
-    url = f"https://swapi.dev/api/vehicles"
     if n_page > 0 :
         url = f"{uri}/?page={str(n_page)}"
     r = requests.get(url)
+
     if r.status_code == 200 : 
         data = r.json()
         result_list = data["results"]
@@ -75,25 +69,29 @@ def fetch_vehicule(n_page):
     else : 
         return None
     
-vehicule_list = fetch_vehicule(1)
-vehicule_list
+def fetch_vehicule(n_page):
+    vehicule_list = vehicules(n_page)
+    vehicule_list
 
-columns = ["name" , "model" , "manufacturer" , "cost_in_credits" , "length" ,"max_atmosphering_speed" , "crew" , "passengers" , "cargo_capacity" , "consumables" , "vehicle_class" , "pilots"  ,"films"]
-df = pd.DataFrame(columns=columns)
-df
+    columns = ["name" , "model" , "manufacturer" , "cost_in_credits" , "length" ,"max_atmosphering_speed" , "crew" , "passengers" , "cargo_capacity" , "consumables" , "vehicle_class" , "pilots"  ,"films"]
+    df = pd.DataFrame(columns=columns)
+    df
 
-for i , row in enumerate(vehicule_list) :
-    df.loc[i,"name"] = row["name"]
-    df.loc[i,"model"] = row["model"]
-    df.loc[i,"manufacturer"] = row["manufacturer"]
-    df.loc[i,"cost_in_credits"] = row["cost_in_credits"]
-    df.loc[i,"length"] = row["length"]
-    df.loc[i,"max_atmosphering_speed"] = row["max_atmosphering_speed"]
-    df.loc[i,"crew"] = row["crew"]
-    df.loc[i,"passengers"] = row["passengers"]
-    df.loc[i,"cargo_capacity"] = row["cargo_capacity"]
-    df.loc[i,"consumables"] = row["consumables"]
-    df.loc[i,"vehicle_class"] = row["vehicle_class"]
-    df.loc[i,"pilots"] = row["pilots"]
-    df.loc[i,"films"] = row["films"]
-df   
+    for i in range(1,36) :
+        if vehicule_list == None :
+            continue
+        else :
+            df.loc[i,"name"] = vehicule["name"]
+            df.loc[i,"model"] = vehicule["model"]
+            df.loc[i,"manufacturer"] = vehicule["manufacturer"]
+            df.loc[i,"cost_in_credits"] = vehicule["cost_in_credits"]
+            df.loc[i,"length"] = vehicule["length"]
+            df.loc[i,"max_atmosphering_speed"] = vehicule["max_atmosphering_speed"]
+            df.loc[i,"crew"] = vehicule["crew"]
+            df.loc[i,"passengers"] = vehicule["passengers"]
+            df.loc[i,"cargo_capacity"] = vehicule["cargo_capacity"]
+            df.loc[i,"consumables"] = vehicule["consumables"]
+            df.loc[i,"vehicle_class"] = vehicule["vehicle_class"]
+            df.loc[i,"pilots"] = vehicule["pilots"]
+            df.loc[i,"films"] = vehicule["films"]
+        return df   
